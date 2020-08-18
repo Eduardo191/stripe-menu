@@ -1,8 +1,18 @@
 import React from 'react';
+import GlobalStyles from './styles/GlobalStyles'
+
+import Layout from './components/Layout'
+import NavBar from './components/NavBar'
 
 function App() {
   return (
-    <div>Hello world</div>
+    <>
+      <Layout>
+        <NavBar />
+      </Layout>
+
+      <GlobalStyles />
+    </>
   );
 }
 
