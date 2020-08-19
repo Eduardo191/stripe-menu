@@ -1,6 +1,6 @@
 import React, { createContext, useState, useCallback, useEffect } from 'react'
 
-const Context = createContext()
+export const Context = createContext()
 
 export function DropDownProvider({ children }) {
   const [options, setOptions] = useState([])
@@ -26,13 +26,20 @@ export function DropDownProvider({ children }) {
     ])
   }, [setOptions])
 
-  const updateOptionProps = useCallback((optionId, props) => {
-    setOptions(items => items.map(item => {
-      if (item.id === optionId) {
-        item = { ...item, ...props }
-      }
-    }))
-  }, [setOptions])
+  const updateOptionProps = useCallback(
+    (optionId, props) => {
+      setOptions((items) =>
+        items.map((item) => {
+          if (item.id === optionId) {
+            item = { ...item, ...props };
+          }
+
+          return item;
+        })
+      );
+    },
+    [setOptions]
+  );
 
   const getOptionById = useCallback(
     (id) => options.find((item) => item.id === id), 
