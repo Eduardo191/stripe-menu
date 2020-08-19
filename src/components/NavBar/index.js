@@ -1,36 +1,30 @@
 import React from 'react'
-import { Container, DropDownStyles } from './styles'
 
-import { DropDownOption } from '../DropDownOption'
+import { Products, Developers, Company } from '../Content'
+import { Container, DropDownStyles } from './styles'
+import { DropDownOption, DropDownProvider } from '../DropDownOption'
 
 function NavBar() {
   return (
-    <DropDownStyles>
-      <Container>
-        <ul>
-          <li>
-            <DropDownOption
-              name="Produtos"
-              content={() => <h1>Produtos</h1>} 
-            />
-          </li>
+    <DropDownProvider>
+      <DropDownStyles>
+        <Container>
+          <ul>
+            <li>
+              <DropDownOption name="Produtos" content={Products} />
+            </li>
 
-          <li>
-            <DropDownOption
-              name="Desenvolvedores"
-              content={<h1>Desenvolvedores</h1>} 
-            />
-          </li>
+            <li>
+              <DropDownOption name="Desenvolvedores" content={Developers} />
+            </li>
 
-          <li>
-            <DropDownOption
-              name="Empresa"
-              content={() => <h1>Empresa</h1>} 
-            />
-          </li>
-        </ul>
-      </Container>
-    </DropDownStyles>
+            <li>
+              <DropDownOption name="Empresa" content={Company} />
+            </li>
+          </ul>
+        </Container>
+      </DropDownStyles>
+    </DropDownProvider>
   )
 }
 
