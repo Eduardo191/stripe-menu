@@ -11,15 +11,27 @@ function NavBar() {
         <Container>
           <ul>
             <li>
-              <DropDownOption name="Produtos" content={Products} />
+              <DropDownOption 
+                name="Produtos" 
+                content={Products}
+                backGroundHeight={286} 
+              />
             </li>
 
             <li>
-              <DropDownOption name="Desenvolvedores" content={Developers} />
+              <DropDownOption 
+                name="Desenvolvedores" 
+                content={Developers}
+                backGroundHeight={167} 
+              />
             </li>
 
             <li>
-              <DropDownOption name="Empresa" content={Company} />
+              <DropDownOption 
+                name="Empresa" 
+                content={Company}
+                backGroundHeight={215} 
+              />
             </li>
           </ul>
         </Container>

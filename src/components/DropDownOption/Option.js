@@ -66,6 +66,8 @@ export function DropDownOption({ name,  content: Content, backGroundHeight }) {
     backGroundHeight
   ])
 
+  useEffect(() => deleteOptionById(id), [deleteOptionById, id])
+
   const handleOpen = () => setTargetId(id)
   const handleClose = () => setTargetId(null)
   const handleTouch = () => (window.isMobile = true)

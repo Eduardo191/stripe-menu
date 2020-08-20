@@ -1,6 +1,6 @@
-import React, { useContext, useMemo, useState } from 'react'
+import React, { useContext, useMemo, useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { DropDownSection, DropDownArrow } from './'
+import { DropDownSection, DropDownArrow, DropDownBackground } from './'
 
 import { Context } from './Provider'
 
@@ -36,39 +36,61 @@ export function DropDownRoot() {
     }, 15)
   }
 
+  useEffect(() => {
+    if (isActive) return
+
+    let timeOut = setTimeout(() => setHasInteracted(false), refDuration * 1000 * 0.9)
+
+    return () => clearTimeout(timeOut)
+  }, [isActive])
+
   return (
-    <div className="dropdown-root">
+    <div style={{ perspective: 2000 }}>
       <motion.div 
-        className="dropdown-container"
+        className="dropdown-root"
         animate={{
-          x,
-          width,
-          height,
-          pointerEvents: isActive ? 'unset' : 'none'
+          opacity: isActive ? 1 : 0,
+          rotateX: isActive ? 0 : -15
         }}
         transition={{
-          ease: 'easeOut',
-          x: isFirstInteraction ? { duration: 0 } : refDuration,
-          width: { duration: isFirstInteraction ? 0 : refDuration * 0.93 },
-          height: { duration: isFirstInteraction ? 0 : refDuration * 0.93 },
-          pointerEvents: { delay: 0.05 }
+          opacity: { duration: refDuration, delay: 0.05 },
+          rotateX: { duration: refDuration, delay: 0.05 }
         }}
-        onHoverStart={() => setHovering(true)}
-        onHoverEnd={() => setHovering(false)}
       >
-        <motion.div
+        <motion.div 
+          className="dropdown-container"
           animate={{
-            x: -x
+            x,
+            width,
+            height,
+            pointerEvents: isActive ? 'unset' : 'none'
           }}
           transition={{
-            x: isFirstInteraction ? { duration: 0 } : undefined
+            ease: 'easeOut',
+            x: isFirstInteraction ? { duration: 0 } : refDuration,
+            width: { duration: isFirstInteraction ? 0 : refDuration * 0.93 },
+            height: { duration: isFirstInteraction ? 0 : refDuration * 0.93 },
+            pointerEvents: { delay: 0.05 }
           }}
+          onHoverStart={() => setHovering(true)}
+          onHoverEnd={() => setHovering(false)}
         >
-          {options.map(item => <DropDownSection key={item.id} option={item} />)}
+
+          <DropDownBackground />
+          <motion.div
+            animate={{
+              x: -x
+            }}
+            transition={{
+              x: isFirstInteraction ? { duration: 0 } : undefined
+            }}
+          >
+            {options.map(item => <DropDownSection key={item.id} option={item} />)}
+          </motion.div>
         </motion.div>
+
+        <DropDownArrow isFirstInteraction={isFirstInteraction} />
       </motion.div>
-      
-      <DropDownArrow isFirstInteraction={isFirstInteraction} />
     </div>
   )
 }
