@@ -30,7 +30,19 @@ export const DropDownStyles = styled.div`
   }
 
   .dropdown-arrow {
+    position: relative;
 
+    &::before {
+      content: '';
+      width: 16px;
+      height: 16px;
+      background: #FFF;
+      position: absolute;
+      top: -6.5px;
+      left: -8px;
+      transform: rotate(45deg);
+      border-radius: 4px 0 0 0;
+    }
   }
 
   .dropdown-container {
@@ -43,5 +55,12 @@ export const DropDownStyles = styled.div`
 
   .dropdown-section {
     position: absolute;
+  }
+
+  .dropdown-background {
+    position: absolute;
+    bottom: 0;
+    background: #f6f9fc;
+    width: 100%;
   }
 `
